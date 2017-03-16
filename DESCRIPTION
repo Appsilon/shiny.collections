@@ -1,0 +1,20 @@
+Package: shiny.collections
+Type: Package
+Title: Realtime collections in Shiny apps through rethinkdb
+Version: 0.1.0
+Author: Filip Stachura <filip@appsilondatascience.com>
+Maintainer: Marek Rogala <marek@appsilondatascience.com>
+Description: Storing persistent data in Shiny apps is not trival.
+    One have to directly write to files, databases, etc. This package
+    is inspired by how collections work in Meteor (https://www.meteor.com/).
+    Not only they are persistent, but also synchronized in real time
+    between all Shiny sessions.
+BugReports: https://github.com/Appsilon/shiny.semantic/issues
+Encoding: UTF-8
+LazyData: TRUE
+License: MIT
+RoxygenNote: 5.0.1
+Imports:
+    shiny (>= 0.12.1),
+    rethinker,
+    yaml
