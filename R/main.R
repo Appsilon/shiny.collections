@@ -36,36 +36,46 @@ clear <- function(connection) {
   rethinker::drainConnection(connection$raw_connection)
 }
 
-collection_as_table_sync <- function(collection_name, connection) {
-  cursor <- rethinker::r()$db(DEFAULT_DB)$table(collection_name)$run(connection$raw_connection)
-  rethinker::cursorToList(cursor)
+empty_tibble <- function(column_names) {
+  args <- map(column_names, ~ character())
+  names(args) <- column_names
+  do.call(tibble, args)
 }
 
-collection <- function(collection_name, connection) {
+cursor_to_tibble <- function(cursor, column_names) {
+  data <- dplyr::bind_rows(rethinker::cursorToList(cursor))
+  if (nrow(data) == 0) empty_tibble(column_names) else data
+}
+
+collection <- function(collection_name, connection, column_names = character()) {
   make_sure_table_exists(connection, collection_name)
 
   cursor <- rethinker::r()$db(DEFAULT_DB)$table(collection_name)$run(connection$raw_connection)
-  data <- rethinker::cursorToList(cursor)
   reactive_value <- shiny::reactiveValues(
     name = collection_name,
-    collection = do.call(rbind, data)
+    connection = connection,
+    collection = cursor_to_tibble(cursor, column_names)
   )
 
   rethinker::r()$db(DEFAULT_DB)$table(collection_name)$changes()$runAsync(connection$raw_connection, function(x) {
     other_connection <- connect()$raw_connection
     cursor <- rethinker::r()$db(DEFAULT_DB)$table(collection_name)$run(other_connection)
-    data <- rethinker::cursorToList(cursor)
+    data <- cursor_to_tibble(cursor, column_names)
     close(other_connection)
-    reactive_value$collection <- do.call(rbind, data)
+    reactive_value$collection <- data
     TRUE
   })
 
   reactive_value
 }
 
-insert <- function(collection_name, element, connection) {
-  rethinker::r()$db(DEFAULT_DB)$table(collection_name)$insert(
-    element
-  )$run(connection$raw_connection)
+insert <- function(collection, element, ...) {
+  rethinker::r()$db(DEFAULT_DB)$table(collection$name)$insert(
+    element, ...
+  )$run(collection$connection$raw_connection)
+}
+
+delete <- function(collection, element_id) {
+  rethinker::r()$db(DEFAULT_DB)$table(collection$name)$get(element_id)$delete()$run(collection$connection$raw_connection)
 }
 
