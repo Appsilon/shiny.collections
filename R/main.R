@@ -26,10 +26,17 @@ connect <- function(host = "localhost", port = "28015", config_file = DEFAULT_CO
 
   connection <- list(
     id = sample(10^6, 1),
+    config = config,
     raw_connection = rethinker::openConnection(config$host, config$port)
   )
   make_sure_db_exists(connection, DEFAULT_DB)
   connection
+}
+
+clone_connection <- function(connection) {
+  host <- connection$config$host
+  port <- connection$config$port
+  connect(host = host, port = port)
 }
 
 clear <- function(connection) {
@@ -58,10 +65,10 @@ collection <- function(collection_name, connection, column_names = character()) 
   )
 
   rethinker::r()$db(DEFAULT_DB)$table(collection_name)$changes()$runAsync(connection$raw_connection, function(x) {
-    other_connection <- connect()$raw_connection
-    cursor <- rethinker::r()$db(DEFAULT_DB)$table(collection_name)$run(other_connection)
+    other_connection <- clone_connection(connection)
+    cursor <- rethinker::r()$db(DEFAULT_DB)$table(collection_name)$run(other_connection$raw_connection)
     data <- cursor_to_tibble(cursor, column_names)
-    close(other_connection)
+    close(other_connection$raw_connection)
     reactive_value$collection <- data
     TRUE
   })
