@@ -44,7 +44,7 @@ clear <- function(connection) {
 }
 
 empty_tibble <- function(column_names) {
-  args <- map(column_names, ~ character())
+  args <- purrr::map(column_names, ~ character())
   names(args) <- column_names
   do.call(tibble, args)
 }

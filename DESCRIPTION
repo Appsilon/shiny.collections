@@ -17,4 +17,5 @@ RoxygenNote: 5.0.1
 Imports:
     shiny (>= 0.12.1),
     rethinker,
-    yaml
+    yaml,
+    tibble
