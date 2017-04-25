@@ -64,6 +64,9 @@ devtools::install_github("Appsilon/`r params$repo_name`", ref = "0.1.0")
 
 Example {.firebrick}
 -------
+
+Before running an example make sure that your RethinkDB is set-up and running. For installation and running guidelines you can visit [RethinkDB docs](https://www.rethinkdb.com/).
+
 ```
 library(shiny)
 
