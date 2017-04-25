@@ -35,6 +35,8 @@ To install [previous version]() you can run:
 Example
 -------
 
+Before running an example make sure that your RethinkDB is set-up and running. For installation and running guidelines you can visit [RethinkDB docs](https://www.rethinkdb.com/).
+
     library(shiny)
 
     ui <- shinyUI(fluidPage(
