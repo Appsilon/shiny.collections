@@ -93,7 +93,8 @@ collection <- function(collection_name, connection, column_names = character(),
 
   rethinker::r()$db(DEFAULT_DB)$table(collection_name)$changes()$runAsync(connection$raw_connection, function(x) {
     other_connection <- clone_connection(connection)
-    cursor <- rethinker::r()$db(DEFAULT_DB)$table(collection_name)$run(other_connection$raw_connection)
+    query <- post_process(rethinker::r()$db(DEFAULT_DB)$table(collection_name))
+    cursor <- query$run(other_connection$raw_connection)
     data <- cursor_to_tibble(cursor, column_names)
     close(other_connection$raw_connection)
     reactive_value$collection <- data
