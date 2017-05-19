@@ -17,7 +17,7 @@ VISIBLE_MESSAGES <- 40
 #' @param collection Collection of entries from rethinkDB
 #'
 #' @return div object with formetted entries
-render_msg_divs <- function(collection){
+render_msg_divs <- function(collection) {
   div(class = "ui very relaxed list",
       collection %>%
         arrange(time) %>%
@@ -25,15 +25,14 @@ render_msg_divs <- function(collection){
         by_row(~ div(class = "item",
                      a(class = "header", .$user),
                      div(class = "description", .$text)
-        )
-        ) %>% {.$.out}
+        )) %>% {.$.out}
   )
 }
 
 #' Get random username
 #'
 #' @return Character "User"+random number 10000<x99999
-get_random_username <- function(){
+get_random_username <- function() {
   paste0("User", round(runif(1, 10000, 99999)))
 }
 
