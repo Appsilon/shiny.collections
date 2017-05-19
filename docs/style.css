@@ -75,6 +75,9 @@ h2, .subheader {
   background-color: firebrick;
   color: white;
 }
+.firebrick a{
+  color: darkorange;
+}
 .darkorange {
   background-color: darkorange;
   color: #343434;
