@@ -3,6 +3,7 @@
 library(shiny)
 library(purrr)
 library(dplyr)
+library(purrrlyr)
 library(magrittr)
 
 #' This global variable describes how many recent variables are visible
