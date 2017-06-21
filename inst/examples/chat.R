@@ -4,7 +4,6 @@ library(shiny)
 library(purrr)
 library(dplyr)
 library(purrrlyr)
-library(magrittr)
 
 #' This global variable describes how many recent variables are visible
 #' in the chat window.
@@ -74,16 +73,14 @@ server <- shinyServer(function(input, output, session) {
     updateTextInput(session, "message_field", value = "")
   })
 
-  observeEvent(chat$collection, {
-    output$chatbox <- renderUI({
-      #' We render message boxes (divs) only if collections
-      #' contains some entries.
-      if (!is_empty(chat$collection)) {
-        render_msg_divs(chat$collection)
-      } else {
-        tags$span("Empty chat")
-      }
-    })
+  output$chatbox <- renderUI({
+    #' We render message boxes (divs) only if collections
+    #' contains some entries.
+    if (!is_empty(chat$collection)) {
+      render_msg_divs(chat$collection)
+    } else {
+      tags$span("Empty chat")
+    }
   })
 
 })
