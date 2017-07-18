@@ -1,3 +1,29 @@
+#' cc <- collect("cars", connection)
+#' isolate(cc$insert(list(name="skoda", value=10)))
+#' cc$query(c("name","value"))
+collect <- function(collection_name, connection) {
+  make_sure_table_exists(connection, collection_name)
+  collection <- collection(collection_name, connection)
+  structure(
+    list(
+      all = function()
+        collection,
+      query = function(column_names = character(), post_process = I)
+        collection(collection_name, connection, column_names, post_process),
+      name = collection_name,
+      insert = function(element, ...) {
+        insert(collection, element, ...)
+        collection <<- collection(collection_name, connection)
+      },
+      delete = function(element_id) {
+        delete(collection, element_id)
+        collection <<- collection(collection_name, connection)
+      }
+    ),
+    class = "collection"
+  )
+}
+
 #' Collect table entries
 #'
 #' This collects entries from specific collection and assigns it to
