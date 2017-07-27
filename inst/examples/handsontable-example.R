@@ -16,9 +16,9 @@ server = function(input, output) {
   # We create collection object, where mydata$collection is reactive value.
   mydata <- shiny.collections::collection("mydata", connection)
   column_names <- c("a", "b", "c")
-
+  
   isolate({
-    # If we run the app for the first time, we should fill our DB in 
+    # If we run the app for the first time, we should fill our DB in
     # with some content.
     if(is_empty(mydata$collection)) {
       shiny.collections::insert(mydata,
@@ -60,16 +60,10 @@ server = function(input, output) {
     }
   })
   
-  # It renders handsontable every time user interacts with it.
-  rh_table <- eventReactive(input$hot$changes,{
+  output$hot <- renderRHandsontable({
     rhandsontable(mydata$collection[column_names], useTypes = TRUE) %>%
       hot_table(readOnly = FALSE)
-  }, ignoreNULL = FALSE)
-
-  output$hot <- renderRHandsontable({
-    rh_table()
   })
 }
 
 shinyApp(ui = ui, server = server)
-
