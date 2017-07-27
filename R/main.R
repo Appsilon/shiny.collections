@@ -1,23 +1,24 @@
-#' cc <- collect("cars", connection)
+#' cc <- collection("cars", connection)
 #' isolate(cc$insert(list(name="skoda", value=10)))
 #' cc$query(c("name","value"))
-collect <- function(collection_name, connection) {
+collection <- function(collection_name, connection) {
   make_sure_table_exists(connection, collection_name)
-  collection <- collection(collection_name, connection)
+  collect_elem <- collect(collection_name, connection)
   structure(
     list(
       all = function()
-        collection,
+        collect_elem,
       query = function(column_names = character(), post_process = I)
-        collection(collection_name, connection, column_names, post_process),
+        collect(collection_name, connection, column_names, post_process),
       name = collection_name,
+      connection = connection,
       insert = function(element, ...) {
-        insert(collection, element, ...)
-        collection <<- collection(collection_name, connection)
+        insert(collect_elem, element, ...)
+        collect_elem <<- collect(collection_name, connection)
       },
       delete = function(element_id) {
-        delete(collection, element_id)
-        collection <<- collection(collection_name, connection)
+        delete(collect_elem, element_id)
+        collect_elem <<- collect(collection_name, connection)
       }
     ),
     class = "collection"
@@ -41,17 +42,17 @@ collect <- function(collection_name, connection) {
 #' \dontrun{
 #' # Set up a connection to DEFAULT_DB
 #' cn <- connect()
-#' tvs <- collection("tv_shows", cn)
+#' tvs <- collect("tv_shows", cn)
 #' # Take a look at gathered entries
-#' isolate(tvs$collection)
+#' isolate(tvs)
 #'
 #' # Using post_process you might use specific rethinkDB operations
 #' # in rethinker query format before query is run (like filter, orderBy).
 #' # E.g., to gather only tv shows with less than 100 episodes use:
-#' tvs <- collection("tv_shows", cn,
+#' tvs <- collect("tv_shows", cn,
 #'             post_process = function(q) q$filter(function(x) x$bracket("episodes")$lt(100)))
 #' }
-collection <- function(collection_name, connection, column_names = character(),
+collect <- function(collection_name, connection, column_names = character(),
                        post_process = I) {
   make_sure_table_exists(connection, collection_name)
 
@@ -59,8 +60,6 @@ collection <- function(collection_name, connection, column_names = character(),
   query <- post_process(table_handle)
   cursor <- query$run(connection$raw_connection)
   reactive_value <- shiny::reactiveValues(
-    name = collection_name,
-    connection = connection,
     collection = cursor_to_tibble(cursor, column_names)
   )
 
@@ -73,8 +72,7 @@ collection <- function(collection_name, connection, column_names = character(),
     reactive_value$collection <- data
     TRUE
   })
-
-  reactive_value
+  reactive_value$collection
 }
 
 #' Insert element to collection
