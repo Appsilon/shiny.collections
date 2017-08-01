@@ -5,7 +5,10 @@
 #'
 #' @param column_names character vector with column names
 #'
-#' @return empty tibble
+#' @importFrom tibble tibble
+#' @import purrr
+#'
+#' @return empty tibble object
 #' @export
 #'
 #' @examples
@@ -13,7 +16,7 @@
 empty_tibble <- function(column_names) {
   args <- purrr::map(column_names, ~ character())
   names(args) <- column_names
-  do.call(tibble::tibble, args)
+  do.call(tibble, args)
 }
 
 #' Make tibble from cursor
@@ -23,10 +26,13 @@ empty_tibble <- function(column_names) {
 #' @param cursor rethinkDB cursor
 #' @param column_names character vector with column names
 #'
+#' @importFrom dplyr bind_rows
+#' @import rethinker
+#'
 #' @return either empty tibble or tibble with data
 #' @export
 cursor_to_tibble <- function(cursor, column_names) {
-  data <- dplyr::bind_rows(rethinker::cursorToList(cursor))
+  data <- bind_rows(rethinker::cursorToList(cursor))
   if (nrow(data) == 0) empty_tibble(column_names) else data
 }
 

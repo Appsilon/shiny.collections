@@ -1,7 +1,7 @@
 Package: shiny.collections
 Type: Package
 Title: Realtime collections in Shiny apps through rethinkdb
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Filip", "Stachura", email = "filip@appsilondatascience.com",
            role = "aut"),
@@ -26,4 +26,5 @@ Imports:
     rethinker,
     yaml,
     tibble,
-    purrr
+    purrr,
+    dplyr

@@ -4,14 +4,12 @@
 \alias{make_sure_table_exists}
 \title{Make sure that rethinkdb table exists}
 \usage{
-make_sure_table_exists(connection, table_name, db_name = DEFAULT_DB)
+make_sure_table_exists(connection, table_name)
 }
 \arguments{
 \item{connection}{structure with rethinkdb connection details}
 
 \item{table_name}{character with table name}
-
-\item{db_name}{character with databse name (default `DEFAULT_DB`)}
 }
 \description{
 This function checks whether table `table_name` exists in databse `db_name`
