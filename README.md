@@ -57,6 +57,11 @@ Before running an example make sure that your RethinkDB is set-up and running. F
 
     shinyApp(ui = ui, server = server)
 
+Talk
+----
+
+We are proud that **shiny.collections** gained a lot of interests at **useR!2017** in Brussels. Here you can see a talk by [Marek Rogala](https://github.com/marekrogala) presenting two interesting use cases: <https://goo.gl/mD1KfV> .
+
 How to contribute?
 ------------------
 
