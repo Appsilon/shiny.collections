@@ -29,7 +29,8 @@ collection <- function(collection_name, connection, column_names = character(),
                        post_process = I) {
   make_sure_table_exists(connection, collection_name)
 
-  query <- post_process(rethinker::r()$db(DEFAULT_DB)$table(collection_name))
+  table_handle <- get_table_handle(connection$db_name, collection_name)
+  query <- post_process(table_handle)
   cursor <- query$run(connection$raw_connection)
   reactive_value <- shiny::reactiveValues(
     name = collection_name,
@@ -37,9 +38,9 @@ collection <- function(collection_name, connection, column_names = character(),
     collection = cursor_to_tibble(cursor, column_names)
   )
 
-  rethinker::r()$db(DEFAULT_DB)$table(collection_name)$changes()$runAsync(connection$raw_connection, function(x) {
+  table_handle$changes()$runAsync(connection$raw_connection, function(x) {
     other_connection <- clone_connection(connection)
-    query <- post_process(rethinker::r()$db(DEFAULT_DB)$table(collection_name))
+    query <- post_process(get_table_handle(connection$db_name, collection_name))
     cursor <- query$run(other_connection$raw_connection)
     data <- cursor_to_tibble(cursor, column_names)
     close(other_connection$raw_connection)
@@ -60,7 +61,8 @@ collection <- function(collection_name, connection, column_names = character(),
 #' inserted, replaced, skipped, unchanged
 #' @export
 insert <- function(collection, element, ...) {
-  rethinker::r()$db(DEFAULT_DB)$table(collection$name)$insert(
+  table_handle <- get_table_handle(collection$connection$db_name, collection$name)
+  table_handle$insert(
     element, ...
   )$run(collection$connection$raw_connection)
 }
@@ -74,5 +76,6 @@ insert <- function(collection, element, ...) {
 #' inserted, replaced, skipped, unchanged
 #' @export
 delete <- function(collection, element_id) {
-  rethinker::r()$db(DEFAULT_DB)$table(collection$name)$get(element_id)$delete()$run(collection$connection$raw_connection)
+  table_handle <- get_table_handle(collection$connection$db_name, collection$name)
+  table_handle$get(element_id)$delete()$run(collection$connection$raw_connection)
 }

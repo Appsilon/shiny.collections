@@ -29,3 +29,20 @@ cursor_to_tibble <- function(cursor, column_names) {
   data <- dplyr::bind_rows(rethinker::cursorToList(cursor))
   if (nrow(data) == 0) empty_tibble(column_names) else data
 }
+
+#' Get table handle
+#'
+#' @param db_name character with database name
+#' @param collection_name character with collection name
+#'
+#' @import rethinker
+#'
+#' @return reql object
+#'
+#' @examples
+#' \dontrun{
+#'  get_table_handle("shiny", "cars")
+#' }
+get_table_handle <- function(db_name, collection_name) {
+  rethinker::r()$db(db_name)$table(collection_name)
+}

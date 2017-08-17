@@ -23,7 +23,6 @@ make_sure_db_exists <- function(connection, db_name) {
 #'
 #' @param connection structure with rethinkdb connection details
 #' @param table_name character with table name
-#' @param db_name character with databse name (default `DEFAULT_DB`)
 #'
 #' @return
 #' @export
@@ -32,7 +31,8 @@ make_sure_db_exists <- function(connection, db_name) {
 #' cn <- connect()
 #' make_sure_db_exists(cn, "temp_db")
 #' make_sure_table_exists(cn, "table one", temp_db")
-make_sure_table_exists <- function(connection, table_name, db_name = DEFAULT_DB) {
+make_sure_table_exists <- function(connection, table_name) {
+  db_name <- connection$db_name
   if (!(table_name %in% rethinker::r()$db(db_name)$tableList()$run(connection$raw_connection))) {
     rethinker::r()$db(db_name)$tableCreate(table_name)$run(connection$raw_connection)
   }
@@ -65,7 +65,8 @@ connect <- function(host = "localhost", port = "28015", db_name = DEFAULT_DB,
   connection <- list(
     id = sample(10^6, 1),
     config = config,
-    raw_connection = rethinker::openConnection(config$host, config$port)
+    raw_connection = rethinker::openConnection(config$host, config$port),
+    db_name = db_name
   )
   make_sure_db_exists(connection, db_name)
   connection
