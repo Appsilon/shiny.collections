@@ -58,7 +58,7 @@ make_sure_table_exists <- function(connection, table_name) {
 #' (default `DEFAULT_CONFIG_NAME`)
 #'
 #' @import rethinker
-#' @importFrom yaml yaml.load_file
+#' @import yaml
 #'
 #' @return connection structure
 #' @export
@@ -70,7 +70,7 @@ make_sure_table_exists <- function(connection, table_name) {
 connect <- function(host = "localhost", port = "28015", db_name = DEFAULT_DB,
                     config_file = DEFAULT_CONFIG_NAME) {
   if (file.exists(config_file)) {
-    config <- yaml.load_file(config_file)
+    config <- yaml::yaml.load_file(config_file)
   } else {
     config <- list(host = host, port = port)
   }
