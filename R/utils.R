@@ -5,7 +5,10 @@
 #'
 #' @param column_names character vector with column names
 #'
-#' @return empty tibble
+#' @import tibble
+#' @import purrr
+#'
+#' @return empty tibble object
 #' @export
 #'
 #' @examples
@@ -22,6 +25,9 @@ empty_tibble <- function(column_names) {
 #'
 #' @param cursor rethinkDB cursor
 #' @param column_names character vector with column names
+#'
+#' @import dplyr
+#' @import rethinker
 #'
 #' @return either empty tibble or tibble with data
 #' @export

@@ -8,6 +8,9 @@
 #' @param column_names Names of specific columns.
 #' @param post_process Post process function called before query is run.
 #'
+#' @import rethinker
+#' @import shiny
+#'
 #' @return Reactive value with connection, collection_name and collection
 #' @export
 #'
@@ -57,6 +60,8 @@ collection <- function(collection_name, connection, column_names = character(),
 #' @param element list with content of element
 #' @param ... other params to insert
 #'
+#' @import rethinker
+#'
 #' @return result status with numer of elements: deleted, errored,
 #' inserted, replaced, skipped, unchanged
 #' @export
@@ -71,6 +76,8 @@ insert <- function(collection, element, ...) {
 #'
 #' @param collection reactive value with collection data
 #' @param element_id character with element id
+#'
+#' @import rethinker
 #'
 #' @return result status with numer of elements: deleted, errored,
 #' inserted, replaced, skipped, unchanged

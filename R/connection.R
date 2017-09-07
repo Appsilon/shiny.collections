@@ -7,9 +7,13 @@
 #' @param db_name character with database name
 #' @export
 #'
+#' @import rethinker
+#'
 #' @examples
+#' \dontrun{
 #' cn <- connect()
 #' make_sure_db_exists(cn, "temp_db")
+#' }
 make_sure_db_exists <- function(connection, db_name) {
   if (!(db_name %in% rethinker::r()$dbList()$run(connection$raw_connection))) {
     rethinker::r()$dbCreate(db_name)$run(connection$raw_connection)
@@ -24,10 +28,13 @@ make_sure_db_exists <- function(connection, db_name) {
 #' @param connection structure with rethinkdb connection details
 #' @param table_name character with table name
 #'
+#' @import rethinker
+#'
 #' @return
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' cn <- connect()
 #' make_sure_db_exists(cn, "temp_db")
 #' make_sure_table_exists(cn, "table one", temp_db")
@@ -50,11 +57,16 @@ make_sure_table_exists <- function(connection, table_name) {
 #' @param config_file character with rethink configuration file name
 #' (default `DEFAULT_CONFIG_NAME`)
 #'
+#' @import rethinker
+#' @import yaml
+#'
 #' @return connection structure
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' cn <- connect()
+#' }
 connect <- function(host = "localhost", port = "28015", db_name = DEFAULT_DB,
                     config_file = DEFAULT_CONFIG_NAME) {
   if (file.exists(config_file)) {
@@ -80,8 +92,10 @@ connect <- function(host = "localhost", port = "28015", db_name = DEFAULT_DB,
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' cn <- connect()
 #' cn_copy <- clone_connection(cn)
+#' }
 clone_connection <- function(connection) {
   host <- connection$config$host
   port <- connection$config$port
@@ -91,6 +105,8 @@ clone_connection <- function(connection) {
 #' Drain RethinkDB connection
 #'
 #' @param connection structure with rethinkdb connection details
+#'
+#' @import rethinker
 #'
 #' @export
 clear <- function(connection) {
