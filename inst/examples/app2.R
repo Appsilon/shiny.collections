@@ -8,7 +8,7 @@ ui <- shinyUI(fluidPage(
 connection <- shiny.collections::connect()
 
 server <- shinyServer(function(input, output) {
-  cars <- shiny.collections::collector("cars", connection)
+  cars <- shiny.collections::collection_handle("cars", connection)
 
   observeEvent(input$click, {
     cars$insert(list(name = "Sample name", value = sample(1:100, 1)))

@@ -27,7 +27,7 @@
 #' }
 collection <- function(collection_name, connection, column_names = character(),
                        post_process = I, direct = TRUE) {
-  .deprecated_call(direct, "collector$all")
+  .deprecated_call(direct, "collection_handle$all")
 
   make_sure_table_exists(connection, collection_name)
 
@@ -63,7 +63,7 @@ collection <- function(collection_name, connection, column_names = character(),
 #' inserted, replaced, skipped, unchanged
 #' @export
 insert <- function(collection, element, direct = TRUE, ...) {
-  .deprecated_call(direct, "collector$insert")
+  .deprecated_call(direct, "collection_handle$insert")
   table_handle <- get_table_handle(collection$connection$db_name, collection$name)
   table_handle$insert(
     element, ...
@@ -79,7 +79,7 @@ insert <- function(collection, element, direct = TRUE, ...) {
 #' inserted, replaced, skipped, unchanged
 #' @export
 delete <- function(collection, element_id, direct = TRUE) {
-  .deprecated_call(direct, "collector$all")
+  .deprecated_call(direct, "collection_handle$all")
   table_handle <- get_table_handle(collection$connection$db_name, collection$name)
   table_handle$get(element_id)$delete()$run(collection$connection$raw_connection)
 }

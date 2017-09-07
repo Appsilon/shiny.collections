@@ -62,5 +62,5 @@ get_table_handle <- function(db_name, collection_name) {
   if (isTRUE(direct))
     .Deprecated(what.msg,
                 package = "shiny.collections",
-                "Direct call is depracted. Check `collector` object.")
+                "Direct call is depracted. Check `collection_handle` object.")
 }

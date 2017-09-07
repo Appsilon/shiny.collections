@@ -1,4 +1,4 @@
-#' Collector
+#' Collection handle
 #'
 #' It is a wrapper for shiny.collections functions, which allows object oriented
 #' behaviour.
@@ -6,7 +6,7 @@
 #' @param collection_name character with name of collection.
 #' @param connection list with connection details.
 #'
-#' @return collector object, which can be intefaced using the methods
+#' @return collection_handle object, which can be intefaced using the methods
 #' described in the 'Methods' section.
 #'
 #' @export
@@ -37,7 +37,7 @@
 #'   \item{\code{connection}}
 #'   {\code{connection} object with connection details.}
 #' }
-collector <- function(collection_name, connection) {
+collection_handle <- function(collection_name, connection) {
     make_sure_table_exists(connection, collection_name)
     col <- collection(collection_name, connection, direct = FALSE)
     structure(
@@ -63,6 +63,6 @@ collector <- function(collection_name, connection) {
             delta
           }
       ),
-      class = "collector"
+      class = "collection_handle"
     )
 }
