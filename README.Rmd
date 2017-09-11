@@ -116,6 +116,7 @@ However, if you encounter any problems, try the following:
     ```
     install.packages("shiny", version='0.14.2.9001')
     ```
+3. Make sure you open the connection _outside_ the `server` function.
 
 Future enhacements
 ------------------
