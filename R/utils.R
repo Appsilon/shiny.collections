@@ -33,7 +33,11 @@ empty_tibble <- function(column_names) {
 #' @export
 cursor_to_tibble <- function(cursor, column_names) {
   data <- dplyr::bind_rows(rethinker::cursorToList(cursor))
-  if (nrow(data) == 0) empty_tibble(column_names) else data
+  if (nrow(data) == 0) {
+    empty_tibble(column_names)
+  } else {
+    data[, column_names]
+  }
 }
 
 #' Get table handle
