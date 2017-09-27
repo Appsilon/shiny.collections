@@ -28,6 +28,7 @@ empty_tibble <- function(column_names) {
 #'
 #' @import dplyr
 #' @import rethinker
+#' @import purrr
 #'
 #' @return either empty tibble or tibble with data
 #' @export
@@ -36,7 +37,11 @@ cursor_to_tibble <- function(cursor, column_names) {
   if (nrow(data) == 0) {
     empty_tibble(column_names)
   } else {
-    data[, column_names]
+    if (purrr::is_empty(column_names)) {
+      data
+    } else {
+      data[, column_names]
+    }
   }
 }
 
