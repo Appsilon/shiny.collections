@@ -15,3 +15,10 @@ make_sure_table_exists(connection, table_name)
 This function checks whether table `table_name` exists in databse `db_name`
 and if not it creates one.
 }
+\examples{
+\dontrun{
+cn <- connect()
+make_sure_db_exists(cn, "temp_db")
+make_sure_table_exists(cn, "table one", "temp_db")
+}
+}

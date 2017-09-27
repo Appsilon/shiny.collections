@@ -30,14 +30,13 @@ make_sure_db_exists <- function(connection, db_name) {
 #'
 #' @import rethinker
 #'
-#' @return
 #' @export
 #'
-#' @examples
-#' \dontrun{
+#' @examples \dontrun{
 #' cn <- connect()
 #' make_sure_db_exists(cn, "temp_db")
-#' make_sure_table_exists(cn, "table one", temp_db")
+#' make_sure_table_exists(cn, "table one", "temp_db")
+#' }
 make_sure_table_exists <- function(connection, table_name) {
   db_name <- connection$db_name
   if (!(table_name %in% rethinker::r()$db(db_name)$tableList()$run(connection$raw_connection))) {
