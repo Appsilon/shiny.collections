@@ -60,7 +60,7 @@ Before running an example make sure that your RethinkDB is set-up and running. F
 Talk
 ----
 
-We are proud that **shiny.collections** gained a lot of interests at **useR!2017** in Brussels. Here you can see a talk by [Marek Rogala](https://github.com/marekrogala) presenting two interesting use cases: <https://goo.gl/mD1KfV> .
+We are proud that **shiny.collections** gained a lot of interests at **useR!2017** in Brussels. Here you can see a talk by [Marek Rogala](https://github.com/marekrogala) presenting two interesting use cases: http://xyz.xyz.
 
 How to contribute?
 ------------------
