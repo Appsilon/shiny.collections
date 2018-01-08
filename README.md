@@ -1,5 +1,5 @@
 
-<link href="http://fonts.googleapis.com/css?family=Lato:300,700,300italic|Inconsolata" rel="stylesheet" type="text/css"> <link href='docs/style.css' rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Maven+Pro:400,700|Inconsolata" rel="stylesheet" type="text/css"> <link href='docs/style.css' rel='stylesheet' type='text/css'>
 
 shiny.collections
 =================
@@ -60,7 +60,7 @@ Before running an example make sure that your RethinkDB is set-up and running. F
 Talk
 ----
 
-We are proud that **shiny.collections** gained a lot of interests at **useR!2017** in Brussels. [Here](https://channel9.msdn.com/Events/useR-international-R-User-conferences/useR-International-R-User-2017-Conference/shinycollections-Google-Docs-like-live-collaboration-in-Shiny) you can see a talk by [Marek Rogala](https://github.com/marekrogala) presenting two interesting use cases.
+We are proud that **shiny.collections** gained a lot of interests at **useR!2017** in Brussels. Here you can see a talk by [Marek Rogala](https://github.com/marekrogala) presenting two interesting use cases: <https://goo.gl/mD1KfV> .
 
 How to contribute?
 ------------------
@@ -84,6 +84,8 @@ However, if you encounter any problems, try the following:
 
             install.packages("shiny", version='0.14.2.9001')
 
+3.  Make sure you open the connection *outside* the `server` function.
+
 Future enhacements
 ------------------
 
@@ -92,10 +94,6 @@ Future enhacements
 -   Publications and subscriptions allowing to sync only part of the data in each Shiny session
 
 Appsilon Data Science
-=====================
-
-We Provide End-to-End Data Science Solutions
-
-<a href="http://appsilondatascience.com"><img alt="Appsilon Data Science" src="https://cdn.rawgit.com/Appsilon/website-cdn/gh-pages/logo-white.png" /></a>
+---------------------
 
 Get in touch [dev@appsilondatascience.com](dev@appsilondatascience.com)
