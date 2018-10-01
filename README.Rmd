@@ -1,11 +1,11 @@
 ---
 output: html_document
 params:
-   website_url: http://appsilondatascience.com
+   website_url: http://appsilon.com
    logo_url: https://cdn.rawgit.com/Appsilon/website-cdn/gh-pages/logo-white.png
    repo_name: shiny.collections
    repo_url: https://github.com/Appsilon/shiny.collections
-   demo_url: http://appsilondatascience.com/demo
+   demo_url: http://appsilon.com/demo
    chagelog_url: https://github.com/Appsilon/shiny.collections/blob/master/CHANGELOG.md
    escape_script: false
 ---
@@ -137,7 +137,7 @@ if (params$type == "web") {
 }
 ```
 
-Get in touch [dev@appsilondatascience.com](dev@appsilondatascience.com)
+Get in touch [dev@appsilon.com](dev@appsilon.com)
 
 ```{r, echo = F, results='asis'}
 if (params$type == "web") {
