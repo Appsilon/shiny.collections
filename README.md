@@ -11,13 +11,13 @@ Google Docs-like live collaboration in Shiny
 <!-- #Basic tutorial article is available on [Appsilon Data Science blog](your_future_art_link). -->
 <!-- Live demo link below 
 <p style="text-align: center; font-size: x-large;">
-<a href="http://appsilondatascience.com/demo">Live demo</a>
+<a href="http://appsilon.com/demo">Live demo</a>
 </p>-->
 
 Source code
 -----------
 
-This library source code can be found on [Appsilon Data Science's](http://appsilondatascience.com) Github: <br> <https://github.com/Appsilon/shiny.collections>
+This library source code can be found on [Appsilon Data Science's](http://appsilon.com) Github: <br> <https://github.com/Appsilon/shiny.collections>
 
 How to install?
 ---------------
@@ -96,4 +96,4 @@ Future enhacements
 Appsilon Data Science
 ---------------------
 
-Get in touch [dev@appsilondatascience.com](dev@appsilondatascience.com)
+Get in touch [dev@appsilon.com](dev@appsilon.com)
