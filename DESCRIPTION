@@ -3,12 +3,12 @@ Type: Package
 Title: Realtime collections in Shiny apps through rethinkdb
 Version: 0.1.1
 Authors@R: c(
-    person("Filip", "Stachura", email = "filip@appsilondatascience.com",
+    person("Filip", "Stachura", email = "filip@appsilon.com",
            role = "aut"),
-    person("Marek", "Rogala", email = "marek@appsilondatascience.com",
+    person("Marek", "Rogala", email = "marek@appsilon.com",
            role = c("aut", "cre")),
     person("Dominik", "Krzemiński",
-           email = "dominik.krzeminski@appsilondatascience.com",
+           email = "dominik@appsilon.com",
            role = "aut")
     )
 Description: Storing persistent data in Shiny apps is not trival.
