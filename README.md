@@ -1,4 +1,4 @@
-**DEPRECATED due to problems with `drainConnection` and lack of further support for rethinker**
+**DEPRECATED due to problems with `drainConnection` and lack of further support for [rethinker](https://github.com/mbq/rethinker)**
 
 <link href="http://fonts.googleapis.com/css?family=Maven+Pro:400,700|Inconsolata" rel="stylesheet" type="text/css"> <link href='docs/style.css' rel='stylesheet' type='text/css'>
 
