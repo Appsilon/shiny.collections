@@ -2,6 +2,7 @@ library(shiny)
 library(shiny.collections)
 library(rhandsontable)
 library(purrr)
+library(dplyr)
 
 ui = shinyUI(fluidPage(
   titlePanel("Handsontable"),
@@ -16,17 +17,21 @@ server = function(input, output) {
   # We create collection object, where mydata$collection is reactive value.
   mydata <- shiny.collections::collection("mydata", connection)
   column_names <- c("a", "b", "c")
+  
+  getTimeInMillis <- function(){
+    return(as.character(as.numeric(Sys.time())*1000))
+  }
 
   isolate({
     # If we run the app for the first time, we should fill our DB in
     # with some content.
     if(is_empty(mydata$collection)) {
       shiny.collections::insert(mydata,
-                                list(a = 1, b="a", c = TRUE))
+                                list(a = 1, b="a", c = TRUE, id = getTimeInMillis()))
       shiny.collections::insert(mydata,
-                                list(a = 3.14, b="xx", c = TRUE))
+                                list(a = 3.14, b="xx", c = TRUE, id = getTimeInMillis()))
       shiny.collections::insert(mydata,
-                                list(a = 100, b="some text", c = FALSE))
+                                list(a = 100, b="some text", c = FALSE, id = getTimeInMillis()))
 
     }
   })
@@ -53,15 +58,41 @@ server = function(input, output) {
     if (!is.null(change_list()$val)) {
       change_row <- as.list(mydata$collection[change_list()$row, ])
       change_col <- column_names[[change_list()$col]]
+      
+      # Neglect update if nothing changed
+      if(!all(is.na(change_row))) {
+        if(change_row[[change_col]] == change_list()$val){
+          return()
+        }
+      }
+      
+      # update value
       change_row[[change_col]] <- change_list()$val
+      
+      # set default values if not entered
+      if(is.na(change_row$a)){
+        change_row$a <- 0
+      }
+      if(is.na(change_row$b)){
+        change_row$b <- ""
+      }
+      if(is.na(change_row$c)){
+        change_row$c <- FALSE
+      }
+
+      # Add id field for new rows
+      new_item <- change_row
+      if("id" %in% names(new_item) && is.na(new_item$id)){
+        new_item$id <- getTimeInMillis()
+      }
+      
       shiny.collections::insert(mydata,
-                                change_row,
-                                conflict = "update")
+                                new_item)
     }
   })
 
   output$hot <- renderRHandsontable({
-    rhandsontable(mydata$collection[column_names], useTypes = TRUE) %>%
+    rhandsontable(mydata$collection %>% arrange(id) %>% select(column_names), useTypes = TRUE) %>%
       hot_table(readOnly = FALSE)
   })
 }
