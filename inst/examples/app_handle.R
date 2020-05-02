@@ -8,12 +8,12 @@ ui <- shinyUI(fluidPage(
 connection <- shiny.collections::connect()
 
 server <- shinyServer(function(input, output) {
-  cars <- shiny.collections::collection("cars", connection)
+  cars <- shiny.collections::collection_handle("cars", connection)
 
   observeEvent(input$click, {
-    shiny.collections::insert(cars, list(name = "Sample name", value = sample(1:100, 1)))
+    cars$insert(list(name = "Sample name", value = sample(1:100, 1)))
   })
-  output$cars_data <- DT::renderDataTable(DT::datatable(cars$collection))
+  output$cars_data <- DT::renderDataTable(DT::datatable(cars$all()))
 })
 
 shinyApp(ui = ui, server = server)

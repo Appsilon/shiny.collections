@@ -61,3 +61,21 @@ cursor_to_tibble <- function(cursor, column_names) {
 get_table_handle <- function(db_name, collection_name) {
   rethinker::r()$db(db_name)$table(collection_name)
 }
+
+#' Deprecated Call
+#'
+#' @param direct TRUE/FALSE flag saying whether it is or
+#' not a direct call of function
+#' @param what.msg character with message to show
+#'
+#' @return Nothing. It only shows 'Deprecated warning'
+#' when \code{direct} is TRUE.
+#'
+#' @examples
+#' .deprecated_call(FALSE, "Message to print out")
+.deprecated_call <- function(direct, what.msg) {
+  if (isTRUE(direct))
+    .Deprecated(what.msg,
+                package = "shiny.collections",
+                "Direct call is depracted. Check `collection_handle` object.")
+}

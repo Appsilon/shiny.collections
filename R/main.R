@@ -4,7 +4,7 @@
 #' a reactive value.
 #'
 #' @param collection_name A name of collection.
-#' @param connection Connection object.
+#' @param connection list with connection details.
 #' @param column_names Names of specific columns.
 #' @param post_process Post process function called before query is run.
 #'
@@ -29,7 +29,9 @@
 #'             post_process = function(q) q$filter(function(x) x$bracket("episodes")$lt(100)))
 #' }
 collection <- function(collection_name, connection, column_names = character(),
-                       post_process = I) {
+                       post_process = I, direct = TRUE) {
+  .deprecated_call(direct, "collection_handle$all")
+
   make_sure_table_exists(connection, collection_name)
 
   table_handle <- get_table_handle(connection$db_name, collection_name)
@@ -65,7 +67,8 @@ collection <- function(collection_name, connection, column_names = character(),
 #' @return result status with numer of elements: deleted, errored,
 #' inserted, replaced, skipped, unchanged
 #' @export
-insert <- function(collection, element, ...) {
+insert <- function(collection, element, direct = TRUE, ...) {
+  .deprecated_call(direct, "collection_handle$insert")
   table_handle <- get_table_handle(collection$connection$db_name, collection$name)
   table_handle$insert(
     element, ...
@@ -82,7 +85,8 @@ insert <- function(collection, element, ...) {
 #' @return result status with numer of elements: deleted, errored,
 #' inserted, replaced, skipped, unchanged
 #' @export
-delete <- function(collection, element_id) {
+delete <- function(collection, element_id, direct = TRUE) {
+  .deprecated_call(direct, "collection_handle$all")
   table_handle <- get_table_handle(collection$connection$db_name, collection$name)
   table_handle$get(element_id)$delete()$run(collection$connection$raw_connection)
 }
